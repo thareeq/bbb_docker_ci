@@ -1,0 +1,32 @@
+name: Build BBB App in Docker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build -t bbb-builder -f docker/Dockerfile .
+
+    - name: Run build inside Docker
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/app bbb-builder \
+        bash -c "cmake . && make"
+
+    - name: Run unit tests
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/app bbb-builder \
+        bash -c "./unit_test"
+
+    - name: Run static analysis
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/app bbb-builder \
+        bash -c "cppcheck --enable=all --inconclusive --std=c++11 src include tests"
