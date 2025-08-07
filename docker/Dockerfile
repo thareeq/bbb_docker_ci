@@ -6,6 +6,8 @@ RUN dpkg --add-architecture armhf && \
     gcc-arm-linux-gnueabihf \
     g++-arm-linux-gnueabihf \
     libc6-dev-armhf-cross \
+    g++-arm-linux-gnueabihf \
+    gcc-arm-linux-gnueabihf \
     cmake \
     make \
     git \
