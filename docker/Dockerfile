@@ -14,4 +14,7 @@ RUN dpkg --add-architecture armhf && \
     cppcheck \
     valgrind
 
+ENV CC=arm-linux-gnueabihf-gcc
+ENV CXX=arm-linux-gnueabihf-g++
+
 WORKDIR /app
