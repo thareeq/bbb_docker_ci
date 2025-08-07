@@ -19,8 +19,8 @@ jobs:
     - name: Run build inside Docker
       run: |
         docker run --rm -v ${{ github.workspace }}:/app bbb-builder \
-        bash -c "cmake . && make"
-        
+        bash -c "mkdir -p build && cd build && cmake .. && make"
+
     - name: Upload bbb_app binary
       uses: actions/upload-artifact@v4
       with:
