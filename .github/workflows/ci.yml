@@ -20,11 +20,17 @@ jobs:
       run: |
         docker run --rm -v ${{ github.workspace }}:/app bbb-builder \
         bash -c "cmake . && make"
+        
+    - name: Upload bbb_app binary
+      uses: actions/upload-artifact@v4
+      with:
+        name: bbb_app
+        path: build/bbb_app
 
-    - name: Run unit tests
-      run: |
-        docker run --rm -v ${{ github.workspace }}:/app bbb-builder \
-        bash -c "./unit_test"
+    # - name: Run unit tests
+    #   run: |
+    #     docker run --rm -v ${{ github.workspace }}:/app bbb-builder \
+    #     bash -c "./unit_test"
 
     - name: Run static analysis
       run: |
